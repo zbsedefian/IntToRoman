@@ -14,25 +14,35 @@ void intToRoman(unsigned int num, char *r);
 
 int main(void){
     
-    char *r;
+    char *r; //output string
+    int input = 1; //user prompted to enter this value. 1 so that enters while. 0 is exit.
+    int running = 1; //to end loop
     
-    intToRoman(143, r);
-    printf("%s\n", r);
+    while (running){
+        
+        //Prompt user and store input
+        printf("Enter a number to convert it to a Roman numeral (0 to exit): ");
+        scanf("%d", &input);
+        
+        //If user enters 0, end the loop (and the program)
+        if(input == 0)
+            break;
+        
+        //Pass params to conversion function
+        intToRoman(input, r);
+        
+        //Output formatting. Show the user the input, then print as many equal signs
+        //as there is length of the roman numeral output (on each side).
+        printf("%d in Roman numerals is...\n", input);
+        int i;
+        for(i = 0; i < strlen(r); i++)
+            printf("=");
+        printf("\n%s\n", r);
+        for(i = 0; i < strlen(r); i++)
+            printf("=");
+        printf("\n");
+    }
     
-    intToRoman(1229, r);
-    printf("%s\n", r);
-    
-    intToRoman(9, r);
-    printf("%s\n", r);
-    
-    intToRoman(3999, r);
-    printf("%s\n", r);
-    
-    intToRoman(40, r);
-    printf("%s\n", r);
-    
-    intToRoman(45, r);
-    printf("%s\n", r);
     return 0;
 }
 
