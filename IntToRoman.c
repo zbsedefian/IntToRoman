@@ -48,26 +48,40 @@ int main(void){
 
 void intToRoman(unsigned int num, char *r){
     
+    //Arrays of strings to be referenced, as well as size the output string should
+    //be for each string respectively.
     char *C[] = {"", "C", "CC", "CCC", "DC", "D", "DC", "DCC", "DCCC", "CM"};
     char *X[] = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
     char *I[] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
     int size[] = {0,  1,    2,     3,    2,   1,    2,     3,      4,    2};
     
+    //For each 1000 in the integer, print an M (and subtract 1000 from the input)
     while(num >= 1000){
         *r++ = 'M';
         num -= 1000;
     }
 
+    /*
+      Now the number has no thousands place. Divide the number by 100 to get
+      the integer in its hundreds place, and use that digit as an index on the
+      string array that holds the C (hundreds) values.  Add its size component
+      to the output r (e.g. if II, then add 2 spots for each I). Finally remove 
+      the hundreds place by using the modulus operator and setting num to its 
+      new value (consisting of tens and ones places).
+    */
     strcpy(r, C[num/100]);
     r += size[num/100];
     num %= 100;
     
+    //Same process as above but with tens.
     strcpy(r, X[num/10]);
     r += size[num/10];
     num %= 10;
     
+    //And again with ones place.
     strcpy(r, I[num/1]);
     r += size[num/1];
     
+    //End string with null character.
     *r = '\0';
 }
