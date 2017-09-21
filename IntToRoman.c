@@ -14,19 +14,16 @@ void intToRoman(unsigned int num, char *r);
 
 int main(void){
     
+    printf("\033c"); //clear terminal screen
     char *r; //output string
     int input = 1; //user prompted to enter this value. 1 so that enters while. 0 is exit.
-    int running = 1; //to end loop
+    int running = 1; //set to 0 to end loop
+    char q; //set this char to q to quit program.
     
-    while (running){
-        
+    while( q != 'q' && q != 'Q' ){
         //Prompt user and store input
-        printf("Enter a number to convert it to a Roman numeral (0 to exit): ");
+        printf("Enter a number to convert it to a Roman numeral: ");
         scanf("%d", &input);
-        
-        //If user enters 0, end the loop (and the program)
-        if(input == 0)
-            break;
         
         //Pass params to conversion function
         intToRoman(input, r);
@@ -34,13 +31,21 @@ int main(void){
         //Output formatting. Show the user the input, then print as many equal signs
         //as there is length of the roman numeral output (on each side).
         printf("%d in Roman numerals is...\n", input);
-        int i;
-        for(i = 0; i < strlen(r); i++)
+        int i;                                          //iterator
+        for(i = 0; i < strlen(r); i++)                  //print separating symbols (top)
             printf("=");
-        printf("\n%s\n", r);
-        for(i = 0; i < strlen(r); i++)
+        printf("\n%s\n", r);                            //show output string
+        for(i = 0; i < strlen(r); i++)                  //print separating symbols (bottom)
             printf("=");
         printf("\n");
+        
+        //Stall program until enter key pressed. Then clear terminal window text.
+        printf("Press enter to continue, type q to quit.\n");
+        while ( getchar() != '\n') {
+            //To be honest, I'm not sure why this empty loop works, but it does.
+        }
+        q = getchar();
+        printf("\033c");
     }
     
     return 0;
